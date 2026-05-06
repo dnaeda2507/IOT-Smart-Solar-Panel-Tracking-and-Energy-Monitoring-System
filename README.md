@@ -24,7 +24,7 @@ Conventional panels cannot follow the sun's movement throughout the day, causing
 | Display | OLED SSD1306 0.96" 128×64 | Live data display |
 | Actuator 1 | SG90 Servo Motor | Rotates panel toward sunlight |
 | Actuator 2 | 2-Channel Relay Module | Controls panel power circuit |
-| Load | LED | Load for current measurement via relay |
+| Load | LED | Load for current measurement via relay NO pin|
 | Power | Breadboard Power Module | 3.3V (sensors) + 5V (servo, relay) |
 
 ---
@@ -71,15 +71,16 @@ INA226 VBUS     → INA226 IN+  (bridged for voltage measurement)
 > The LED acts as the load to allow current to flow through the measurement circuit.  
 > The relay switches this load on/off based on system mode.
 
-### Power Distribution (Breadboard Power Module)
+### Power Distribution
 
 | Rail | Voltage | Connected Components |
 |---|---|---|
-| Left (+) rail | 3.3V | OLED, BH1750, INA226 VCC, LDR × 2 |
-| Right (+) rail | 5V | Servo VCC, Relay VCC |
-| Both (−) rails | GND | All components + ESP32 GND (rails bridged) |
+| Breadboard Left (+) | 3.3V | OLED, BH1750, INA226, LDR × 2 |
+| Breadboard Right (+) | 5V | Servo, Relay Module |
+| Breadboard (−) | GND | All components + ESP32 GND |
 
 ---
+
 
 ## ☁️ Cloud Setup
 
