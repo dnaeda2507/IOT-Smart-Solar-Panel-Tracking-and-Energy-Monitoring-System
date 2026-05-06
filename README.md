@@ -9,7 +9,7 @@
 ## 📋 Project Summary
 
 This project solves the inefficiency problem of fixed-angle solar panels.
-Conventional panels cannot follow the sun's movement throughout the day, causing significant energy loss. Two LDR sensors continuously detect the direction of sunlight and rotate a servo motor to keep the panel always facing the sun. An INA226 sensor measures the panel's real-time voltage, current, and power output. A BH1750 light intensity sensor measures ambient lux and compares expected power output with actual power output to calculate system efficiency. Under low-light conditions such as night or heavy cloud cover, the system automatically moves the panel to a safe park position and opens the relay to cut the circuit. A LED connected through the relay acts as the load, allowing real current measurement through the INA226. All data is published to Arduino Cloud and monitored live on a dashboard. Users can remotely switch between AUTO and MANUAL modes and adjust the panel angle via a dashboard slider.
+Conventional panels cannot follow the sun's movement throughout the day, causing significant energy loss. Two LDR sensors continuously detect the direction of sunlight and rotate a servo motor to [...]
 
 ---
 
@@ -58,6 +58,8 @@ Conventional panels cannot follow the sun's movement throughout the day, causing
 | Relay Module | IN2 | GPIO 27 | 5V |
 
 ### INA226 Power Measurement Circuit
+
+![INA226 Power Circuit](ina226_power_circuit.drawio.png)
 
 ```
 Solar Panel (+) → INA226 IN+  (large hole)
@@ -155,7 +157,7 @@ INA226 VBUS     → INA226 IN+  (bridged for voltage measurement)
 
 ### Data Upload
 
-Every 500ms the ESP32 reads all sensors and publishes values to Arduino Cloud via MQTT over Wi-Fi. The BH1750 returns lux values over I2C. The INA226 measures bus voltage via the VBUS pin (bridged to IN+) and calculates current from the shunt voltage across the built-in 0.1Ω R100 resistor (`I = V_shunt / R_shunt`). Power is calculated as `P = V × I`. Efficiency compares actual power with expected output based on lux:
+Every 500ms the ESP32 reads all sensors and publishes values to Arduino Cloud via MQTT over Wi-Fi. The BH1750 returns lux values over I2C. The INA226 measures bus voltage via the VBUS pin (bridge[...]
 
 ```
 efficiency = (actual_power / ((lux / 1000) × 0.9W)) × 100
@@ -163,7 +165,7 @@ efficiency = (actual_power / ((lux / 1000) × 0.9W)) × 100
 
 ### AUTO Mode
 
-Both LDR sensors are read via ADC (GPIO34, GPIO35). If the difference between left and right exceeds the threshold (150), the servo rotates 5° toward the brighter side. If both sensors are saturated (≥4090), the panel holds position. Relay 1 closes (LOW) — current flows through LED load and INA226 measures it.
+Both LDR sensors are read via ADC (GPIO34, GPIO35). If the difference between left and right exceeds the threshold (150), the servo rotates 5° toward the brighter side. If both sensors are satur[...]
 
 ### MANUAL Mode
 
@@ -171,7 +173,7 @@ Activated by selecting MANUAL on the dashboard. The servo moves to the angle set
 
 ### NIGHT Mode
 
-When lux drops below 8.0 lx, the system automatically enters NIGHT mode. The servo returns to park position (90°) and Relay 1 opens (HIGH), cutting power to the LED load. This protects the system in dark conditions.
+When lux drops below 8.0 lx, the system automatically enters NIGHT mode. The servo returns to park position (90°) and Relay 1 opens (HIGH), cutting power to the LED load. This protects the syste[...]
 
 ### Dashboard Control Logic
 
