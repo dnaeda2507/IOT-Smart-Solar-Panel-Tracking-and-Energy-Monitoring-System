@@ -31,6 +31,8 @@ Conventional panels cannot follow the sun's movement throughout the day, causing
 
 ## 🔌 Wiring Table
 
+![Solar Tracker Wiring Diagram](solar_tracker_wiring.drawio.png)
+
 ### I2C Bus (Shared — SDA: GPIO21, SCL: GPIO22)
 
 | Component | Pin | ESP32 GPIO | Power |
