@@ -191,7 +191,7 @@ When lux drops below 8.0 lx, the system automatically enters NIGHT mode. The ser
 ## 📸 Evidence
 
 ### Dashboard Screenshot
-![Dashboard](dashboard.png)
+![Dashboard](Dashboard.png)
 
 ---
 
